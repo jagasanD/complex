@@ -22,3 +22,27 @@ after_success:
   - docker push jagasan/multi-nginx
   - docker push jagasan/multi-server
   - docker push jagasan/multi-worker
+
+  #AWS deployment configuration in Travis
+deploy:
+#AWS container name 
+  provider: elasticbeanstalk
+#AWS regin check created url 
+  region: "us-west-2"
+#AWS created application name
+  app: "multi-docker"
+#AWS created enviornment name
+  env: "Multidocker-env"
+#EC2 bucket name search ec2 
+  bucket_name: "elasticbeanstalk-us-west-2-110656221591"
+ #EC2 bucket path name same as application name by default 
+  bucket_path: "multi-docker"
+
+#git branch
+  on:
+    branch: master
+#AWS create user with permission and set those secret key and access key 
+#in Tracvis application enviornment variable 
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
